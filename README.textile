@@ -1,8 +1,8 @@
 h2. leveldb-server
 
 Async leveldb-server based on zeromq.
-Storage engine "leveldb":http://code.google.com/p/leveldb/
-Networking library "zeromq":http://www.zeromq.org/
+*"leveldb"*:http://code.google.com/p/leveldb/ storage engine
+*"zeromq"*:http://www.zeromq.org/ networking library
 
 h3. License
 
@@ -14,7 +14,7 @@ h2. Features
 * Data is sorted by key - allows @range@ queries
 * Data is automatically compressed 
 * Can act as presistant cache
-* For safebox it replaced memcached+mysql
+* For our use at *"Safebox"*:http://safebox.fabulasolutions.com/ it replaced memcached+mysql
 * @cp level.db backup.db@ for backup
 * Networking/wiring from @zeromq@ messaging library
 * Async server for scalability and capacity
