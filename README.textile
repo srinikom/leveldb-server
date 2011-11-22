@@ -131,4 +131,6 @@ Would love your pull requests on
 * Serializing and seperate threads for get/put/range in leveldb-server
 * HA/replication/autosharding and possibly pub-sub for replication
 
+h2. Thanks
 
+Thanks to all the folks who have contributed to all the dependencies. Special thanks to pyzmq/examples/mongo* author for inspiration. 
