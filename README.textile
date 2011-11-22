@@ -1,8 +1,8 @@
 h2. leveldb-server
 
 Async leveldb-server based on zeromq.
-More info about leveldb 
-More info about zeromq 
+Storage engine "leveldb":http://code.google.com/p/leveldb/
+Networking library "zeromq":http://www.zeromq.org/
 
 h3. License
 
@@ -28,6 +28,8 @@ h2. Features
 'v3'
 >>> db.range()
 '[{"k1": "v1"}, {"k2": "v2"}, {"k3": "v3"}]'
+>>> db.range("k1", "k2")
+'[{"k1": "v1"}, {"k2": "v2"}]'
 >>> db.delete('k1')
 >>>
 </pre>
@@ -35,6 +37,7 @@ h2. Features
 Will be adding high availability, replication and autosharding using the same zeromq framework. 
 
 h3. Dependencies
+
 <pre>
 python
 zmq
