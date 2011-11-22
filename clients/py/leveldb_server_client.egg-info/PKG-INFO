@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: leveldb-server-client
+Version: 0.1.0
+Summary: client for leveldb-server
+Home-page: https://github.com/srinikom/leveldb-server
+Author: Srini
+Author-email: srini@fabulasolutions.com
+License: BSD
+Description: UNKNOWN
+Platform: UNKNOWN

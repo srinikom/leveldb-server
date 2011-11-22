@@ -1,0 +1,115 @@
+h2. leveldb-server
+Async leveldb-server based on zeromq.
+More info about leveldb 
+More info about zeromq 
+
+h3. License
+New BSD license. Please see license.txt for more details
+
+h2. Features
+
+h3. leveldb features
+* Very simple key-value storage
+* Data is sorted by key - allows @ range @ queries
+* Data is automatically compressed 
+* Can act as presistant cache
+* For safebox it replaced memcached+mysql
+* @cp level.db backup.db@ for backup
+
+h3. leveldb-server features
+* Networking/wiring from @ zeromq @ messaging library
+* Async server for scalability and capacity
+* Sync client for easy coding
+
+h3. leveldb-client features
+* python client
+* easy to get multiple language bindings. See here for zmq client library http://www.zeromq.org/bindings:_start
+
+<pre>
+>>> db.put("k3", "v3")
+'True'
+>>> db.get("k3")
+'v3'
+>>> db.range()
+'[{"k1": "v1"}, {"k2": "v2"}, {"k3": "v3"}]'
+>>> db.delete('k1')
+>>>
+</pre>
+
+Will be adding high availability, replication and autosharding using the same zeromq framework. 
+
+h3. Dependencies
+<pre>
+python
+zmq
+pyzmq
+leveldb
+pyleveldb 
+</pre>
+
+h2. Getting Started
+
+h3. Installing zeromq
+
+<pre>
+wget http://download.zeromq.org/zeromq-2.1.10.tar.gz
+tar xvfz zeromq-2.1.10.tar.gz
+cd zeromq-2.1.10
+sudo ./configure
+sudo make
+sudo make install
+</pre>
+
+h3. Installing pyzmq
+<pre>
+wget https://github.com/zeromq/pyzmq/downloads/pyzmq-2.1.10.tar.gz
+tar xvfz pyzmq-2.1.10.tar.gz
+cd pyzmq-2.1.10/
+sudo python setup.py configure --zmq=/usr/local/lib/
+sudo python setup.py install
+</pre>
+
+h3. Installing leveldb and pyleveldb
+<pre>
+svn checkout http://py-leveldb.googlecode.com/svn/trunk/ py-leveldb-read-only
+cd py-leveldb-read-only
+sudo compile_leveldb.sh
+sudo python setup.py install
+</pre>
+
+h3. Starting the leveldb-server
+<pre>
+> python leveldb-server.py -h
+Usage: leveldb-server.py 
+	-p [port and host settings] Default: tcp://127.0.0.1:5147
+	-f [database file name] Default: level.db
+
+leveldb-server
+
+Options:
+  --version             show program's version number and exit
+  -h, --help            show this help message and exit
+  -p HOST, --host=HOST  
+  -d DBFILE, --dbfile=DBFILE
+> python leveldb-server.py
+</pre>
+
+h3. Using the leveldb-client-py
+<pre>
+> sudo python setup.py install
+> python 
+>>> from leveldbClient import database
+>>> db = database.leveldb()
+>>> db.get("Key")
+>>> db.put("K", "V")
+>>> db.range()
+>>> db.range(start, end)
+>>> db.delete("K")
+</pre>
+
+h2. Backing up the database
+<pre>
+cp -rpf level.db backup.db
+</pre>
+
+
