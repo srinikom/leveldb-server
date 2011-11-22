@@ -1,8 +1,9 @@
 h2. leveldb-server
 
-Async leveldb-server based on zeromq.
-*"leveldb":http://code.google.com/p/leveldb/ storage engine*
-*"zeromq":http://www.zeromq.org/ networking library*
+Async leveldb-server based on zeromq
+*"leveldb":http://code.google.com/p/leveldb/* storage engine
+*"zeromq":http://www.zeromq.org/* networking library
+We use at *"Safebox":http://safebox.fabulasolutions.com/*
 
 h3. License
 
