@@ -1,13 +1,13 @@
 h2. leveldb-server
 
-Async leveldb-server based on zeromq
-*"leveldb":http://code.google.com/p/leveldb/* storage engine
-*"zeromq":http://www.zeromq.org/* networking library
-We use at *"Safebox":http://safebox.fabulasolutions.com/*
+* Async leveldb server and client based on zeromq
+* Storage engine *"leveldb":http://code.google.com/p/leveldb/*
+* Networking library *"zeromq":http://www.zeromq.org/*
+* We use leveldb-server at *"Safebox":http://safebox.fabulasolutions.com/* 
 
 h3. License
 
-New BSD license. Please see license.txt for more details
+New BSD license. Please see license.txt for more details.
 
 h2. Features
 
@@ -20,7 +20,7 @@ h2. Features
 * Networking/wiring from @zeromq@ messaging library
 * Async server for scalability and capacity
 * Sync client for easy coding
-* Easy to get multiple language bindings. See here for zmq client library http://www.zeromq.org/bindings:_start
+* Easy to get multiple language bindings. See here for *"zmq client library":http://www.zeromq.org/bindings:_start*
 
 <pre>
 >>> db.put("k3", "v3")
@@ -40,7 +40,7 @@ Will be adding high availability, replication and autosharding using the same ze
 h3. Dependencies
 
 <pre>
-python
+python 2.6+
 zmq
 pyzmq
 leveldb
@@ -48,6 +48,8 @@ pyleveldb
 </pre>
 
 h2. Getting Started
+
+Instructions for an EC2 Ubuntu box.
 
 h3. Installing zeromq
 
@@ -115,5 +117,15 @@ h2. Backing up the database
 <pre>
 cp -rpf level.db backup.db
 </pre>
+
+h2. Known issues and work in progress
+
+Would love your pull requests on
+* Benchmarking and performance analysis
+* client libraries for other languages
+* [issue] zeromq performance issues with 1M+ inserts at a time
+* timeouts in client library
+* Serializing and seperate threads for get/put/range in leveldb-server
+* HA/replication/autosharding and possibly pub-sub for replication
 
 
