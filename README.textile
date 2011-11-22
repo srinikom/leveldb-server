@@ -1,29 +1,25 @@
 h2. leveldb-server
+
 Async leveldb-server based on zeromq.
 More info about leveldb 
 More info about zeromq 
 
 h3. License
+
 New BSD license. Please see license.txt for more details
 
 h2. Features
 
-h3. leveldb features
 * Very simple key-value storage
-* Data is sorted by key - allows @ range @ queries
+* Data is sorted by key - allows @range@ queries
 * Data is automatically compressed 
 * Can act as presistant cache
 * For safebox it replaced memcached+mysql
 * @cp level.db backup.db@ for backup
-
-h3. leveldb-server features
-* Networking/wiring from @ zeromq @ messaging library
+* Networking/wiring from @zeromq@ messaging library
 * Async server for scalability and capacity
 * Sync client for easy coding
-
-h3. leveldb-client features
-* python client
-* easy to get multiple language bindings. See here for zmq client library http://www.zeromq.org/bindings:_start
+* Easy to get multiple language bindings. See here for zmq client library http://www.zeromq.org/bindings:_start
 
 <pre>
 >>> db.put("k3", "v3")
@@ -61,6 +57,7 @@ sudo make install
 </pre>
 
 h3. Installing pyzmq
+
 <pre>
 wget https://github.com/zeromq/pyzmq/downloads/pyzmq-2.1.10.tar.gz
 tar xvfz pyzmq-2.1.10.tar.gz
@@ -70,6 +67,7 @@ sudo python setup.py install
 </pre>
 
 h3. Installing leveldb and pyleveldb
+
 <pre>
 svn checkout http://py-leveldb.googlecode.com/svn/trunk/ py-leveldb-read-only
 cd py-leveldb-read-only
@@ -78,6 +76,7 @@ sudo python setup.py install
 </pre>
 
 h3. Starting the leveldb-server
+
 <pre>
 > python leveldb-server.py -h
 Usage: leveldb-server.py 
@@ -95,6 +94,7 @@ Options:
 </pre>
 
 h3. Using the leveldb-client-py
+
 <pre>
 > sudo python setup.py install
 > python 
