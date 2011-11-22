@@ -14,10 +14,10 @@ h2. Features
 * Very simple key-value storage
 * Data is sorted by key - allows @range@ queries
 * Data is automatically compressed 
-* Can act as presistant cache
+* Can act as persistent cache
 * For our use at *"Safebox":http://safebox.fabulasolutions.com/* it replaced memcached+mysql
 * @cp level.db backup.db@ for backup
-* Networking/wiring from @zeromq@ messaging library
+* Networking/wiring from @zeromq@ messaging library - allows many topologies
 * Async server for scalability and capacity
 * Sync client for easy coding
 * Easy to get multiple language bindings. See here for *"zmq client library":http://www.zeromq.org/bindings:_start*
@@ -81,7 +81,7 @@ sudo compile_leveldb.sh
 sudo python setup.py install
 </pre>
 
-h3. Starting the leveldb-server
+h3. Starting the "leveldb-server":https://github.com/srinikom/leveldb-server/blob/master/leveldb-server.py
 
 <pre>
 > python leveldb-server.py -h
@@ -99,7 +99,7 @@ Options:
 > python leveldb-server.py
 </pre>
 
-h3. Using the leveldb-client-py
+h3. Using the "leveldb-client-py":https://github.com/srinikom/leveldb-server/blob/master/clients/py/leveldbClient/database.py
 
 <pre>
 > sudo python setup.py install
@@ -113,7 +113,7 @@ h3. Using the leveldb-client-py
 >>> db.delete("K")
 </pre>
 
-h2. Backing up the database
+h2. Backups
 <pre>
 cp -rpf level.db backup.db
 </pre>
@@ -124,7 +124,8 @@ Would love your pull requests on
 * Benchmarking and performance analysis
 * client libraries for other languages
 * [issue] zeromq performance issues with 1M+ inserts at a time
-* timeouts in client library
+* [feature] timeouts in client library
+* [feature] support for counters
 * Serializing and seperate threads for get/put/range in leveldb-server
 * HA/replication/autosharding and possibly pub-sub for replication
 
