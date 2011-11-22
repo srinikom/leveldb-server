@@ -16,11 +16,11 @@ h2. Features
 * Data is automatically compressed 
 * Can act as persistent cache
 * For our use at *"Safebox":http://safebox.fabulasolutions.com/* it replaced memcached+mysql
-* @cp level.db backup.db@ for backup
+* Simple backups @cp -rf level.db backup.db@ 
 * Networking/wiring from @zeromq@ messaging library - allows many topologies
 * Async server for scalability and capacity
 * Sync client for easy coding
-* Easy polyglot client bindings. See here for *"zmq bindings":http://www.zeromq.org/bindings:_start*
+* Easy polyglot client bindings. See *"zmq bindings":http://www.zeromq.org/bindings:_start*
 
 <pre>
 >>> db.put("k3", "v3")
@@ -40,7 +40,7 @@ Will be adding high availability, replication and autosharding using the same ze
 h3. Dependencies
 
 <pre>
-python 2.6+
+python 2.6+ (older versions with simplejson)
 zmq
 pyzmq
 leveldb
@@ -102,6 +102,7 @@ Options:
 h3. Using the "leveldb-client-py":https://github.com/srinikom/leveldb-server/blob/master/clients/py/leveldbClient/database.py
 
 <pre>
+> cd clients/py/
 > sudo python setup.py install
 > python 
 >>> from leveldbClient import database
