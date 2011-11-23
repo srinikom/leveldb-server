@@ -115,16 +115,17 @@ if __name__ == "__main__":
         workers.append(worker)
             
     try:
-        sockets = dict(poll.poll())
-        if frontend in sockets:
-            if sockets[frontend] == zmq.POLLIN:
-                msg = frontend.recv_multipart()
-                backend.send_multipart(msg)
-                
-        if backend in sockets:
-            if sockets[backend] == zmq.POLLIN:
-                msg = backend.recv_multipart()
-                frontend.send_multipart(msg)
+        while True:
+            sockets = dict(poll.poll())
+            if frontend in sockets:
+                if sockets[frontend] == zmq.POLLIN:
+                    msg = frontend.recv_multipart()
+                    backend.send_multipart(msg)
+                    
+            if backend in sockets:
+                if sockets[backend] == zmq.POLLIN:
+                    msg = backend.recv_multipart()
+                    frontend.send_multipart(msg)
     except KeyboardInterrupt:
         frontend.close()
         backend.close()
