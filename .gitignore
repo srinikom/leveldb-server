@@ -1,0 +1,3 @@
+level.db
+*.pyc
+clients/py/build/lib

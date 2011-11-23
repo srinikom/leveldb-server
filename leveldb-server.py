@@ -8,6 +8,7 @@ import zmq
 import leveldb
 import json
 import optparse
+from time import sleep
 
 class workerThread(threading.Thread):
     """workerThread"""
@@ -15,16 +16,24 @@ class workerThread(threading.Thread):
         threading.Thread.__init__ (self)
         self.context = context
         self.db = db
-    
+        self.running = True
+        self.processing = False
+        self.socket = self.context.socket(zmq.XREQ)
+
     def run(self):
-        socket = self.context.socket(zmq.XREQ)
-        socket.connect('inproc://backend')
-        while True:
-            msg = socket.recv_multipart()
+        self.socket.connect('inproc://backend')
+        while self.running:
+            try:
+                msg = self.socket.recv_multipart()
+            except zmq.ZMQError:
+                self.running = False
+                continue
+
+            self.processing = True
             if  len(msg) != 3:
                 value = 'None'
                 reply = [msg[0], value]
-                socket.send_multipart(reply)
+                self.socket.send_multipart(reply)
                 continue
             id = msg[0]
             op = msg[1]
@@ -74,10 +83,14 @@ class workerThread(threading.Thread):
             else:
                 value = ""
                 reply.append(value)
-            #print reply
-            socket.send_multipart(reply)
-        
-        socket.close()
+            self.socket.send_multipart(reply)
+            self.processing = False
+
+    def close(self):
+        self.running = False
+        while self.processing:
+            sleep(1)
+        self.socket.close()
 
 if __name__ == "__main__":
     optparser = optparse.OptionParser(
@@ -114,20 +127,22 @@ if __name__ == "__main__":
         worker.start()
         workers.append(worker)
             
-    while True:
-        sockets = dict(poll.poll())
-        if frontend in sockets:
-            if sockets[frontend] == zmq.POLLIN:
-                msg = frontend.recv_multipart()
-                backend.send_multipart(msg)
-                
-        if backend in sockets:
-            if sockets[backend] == zmq.POLLIN:
-                msg = backend.recv_multipart()
-                frontend.send_multipart(msg)
-                
-    #never here
-    frontend.close()
-    backend.close()
-    context.term()
+    try:
+        while True:
+            sockets = dict(poll.poll())
+            if frontend in sockets:
+                if sockets[frontend] == zmq.POLLIN:
+                    msg = frontend.recv_multipart()
+                    backend.send_multipart(msg)
+                    
+            if backend in sockets:
+                if sockets[backend] == zmq.POLLIN:
+                    msg = backend.recv_multipart()
+                    frontend.send_multipart(msg)
+    except KeyboardInterrupt:
+        for worker in workers:
+            worker.close()
+        frontend.close()
+        backend.close()
+        context.term()
 
