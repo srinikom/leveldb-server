@@ -15,7 +15,7 @@ class workerThread(threading.Thread):
         threading.Thread.__init__ (self)
         self.context = context
         self.db = db
-    
+
     def run(self):
         socket = self.context.socket(zmq.XREQ)
         socket.connect('inproc://backend')
@@ -114,7 +114,7 @@ if __name__ == "__main__":
         worker.start()
         workers.append(worker)
             
-    while True:
+    try:
         sockets = dict(poll.poll())
         if frontend in sockets:
             if sockets[frontend] == zmq.POLLIN:
@@ -125,9 +125,8 @@ if __name__ == "__main__":
             if sockets[backend] == zmq.POLLIN:
                 msg = backend.recv_multipart()
                 frontend.send_multipart(msg)
-                
-    #never here
-    frontend.close()
-    backend.close()
-    context.term()
+    except KeyboardInterrupt:
+        frontend.close()
+        backend.close()
+        context.term()
 
