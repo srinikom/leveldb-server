@@ -115,6 +115,7 @@ h3. Using the "leveldb-client-py":https://github.com/srinikom/leveldb-server/blo
 </pre>
 
 h2. Backups
+
 <pre>
 > cp -rpf level.db backup.db
 </pre>
